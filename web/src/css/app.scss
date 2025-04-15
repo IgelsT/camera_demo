@@ -1,0 +1,61 @@
+// app global css in SCSS form
+
+H6 {
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.q-page {
+  min-height: auto !important;
+  padding: 10px;
+}
+
+.pageH100 {
+  height: calc(100vh - 110px);
+}
+
+.table100w {
+  width: 100%;
+}
+
+.table-button {
+  text-decoration: none;
+}
+
+.online-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.online-circle-green {
+  background-color: green;
+}
+
+.online-circle-red {
+  background-color: red;
+}
+
+.stvs-table {
+  height: 100%;
+  width: 100%;
+  & .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th {
+    background-color: #fff;
+  }
+  & thead tr th {
+    position: sticky;
+    z-index: 1;
+  }
+  & thead tr:last-child th {
+    top: 48px;
+  }
+  & thead tr:first-child th {
+    top: 0;
+  }
+}
