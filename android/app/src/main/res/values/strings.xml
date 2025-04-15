@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CameraStream0.2</string>
+    <string name="start_button">Start</string>
+    <string name="start_record">start record</string>
+    <string name="switch_camera_button">switch camera</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

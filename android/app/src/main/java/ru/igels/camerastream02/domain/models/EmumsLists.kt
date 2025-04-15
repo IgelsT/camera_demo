@@ -1,0 +1,19 @@
+package ru.igels.camerastream02.domain.models
+
+enum class LOGTYPE {
+    INFO, DEBUG, ERROR
+}
+
+enum class APPMSG_TYPE {
+    SETTINGS_UPDATED,
+    POWERSTATE_UPDATED,
+    NETWORKSTATE_UPDATED,
+    PERMISSION_UPDATED,
+    STATE_UPDATED,
+    STATE_REQUESTED,
+    CAMLIST_UPDATED,
+    LOCATION_UPDATED,
+    LOG_ROTATED,
+    API_MESSAGE_COMPLITE,
+    LOG_SEND,
+}
