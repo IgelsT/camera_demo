@@ -55,7 +55,7 @@ internal object Utils {
     val apiToken: String
         get() = if (apiSettings.deviceToken != "") apiSettings.deviceToken else apiSettings.userToken
 
-    fun getApiUrl(endpoint: String) = "http://${apiSettings.url}/api/v1/$endpoint"
+    fun getApiUrl(endpoint: String, action: String) = "http://${apiSettings.url}/api/v1/$endpoint/$action"
 
     fun getMD5String(rawString: String): String {
         val crypt = MessageDigest.getInstance("MD5");

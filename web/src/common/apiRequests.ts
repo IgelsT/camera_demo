@@ -174,108 +174,91 @@ async function parseJson(resp: Response) {
 // }
 
 async function register(email: string, password: string) {
-  return RequestAPI(Urls.Auth, {
-    action: 'register',
+  return RequestAPI(Urls.Auth + '/register', {
     data: { user_email: email, user_password: password },
   });
 }
 
 async function checkHash(hash: string) {
-  return RequestAPI(Urls.Auth, {
-    action: 'confirmEmail',
+  return RequestAPI(Urls.Auth + '/confirmEmail', {
     data: { hash },
   });
 }
 
 async function recovery(email: string) {
-  return RequestAPI(Urls.Auth, {
-    action: 'recovery',
+  return RequestAPI(Urls.Auth + '/recovery', {
     data: { user_email: email },
   });
 }
 
 async function apiLogin(username: string, pass: string) {
-  return RequestAPI(Urls.Auth, {
-    action: 'login',
+  return RequestAPI(Urls.Auth + '/login', {
     data: { user_email: username, user_password: pass },
   });
 }
 
 async function apiSaveProfile(data: object) {
-  return RequestAPI(Urls.Profile, { action: 'saveProfile', data: data });
+  return RequestAPI(Urls.Profile + '/saveProfile', { data: data });
 }
 
 async function getDeviceList() {
-  return RequestAPI(Urls.Devices, {
-    action: 'list',
-  });
+  return RequestAPI(Urls.Devices + '/list', {});
 }
 
 async function getDeviceInfo(device_id: number) {
-  return RequestAPI(Urls.Devices, {
-    action: 'info',
+  return RequestAPI(Urls.Devices + '/info', {
     data: { device_id },
   });
 }
 
 async function getDeviceLogs(device_id: number) {
-  return RequestAPI(Urls.Devices, {
-    action: 'logsList',
+  return RequestAPI(Urls.Devices + '/logsList', {
     data: { device_id },
   });
 }
 
 async function getDeviceLogFile(device_id: number, filename: string) {
-  return RequestAPI(Urls.Devices, {
-    action: 'logFile',
+  return RequestAPI(Urls.Devices + '/logFile', {
     data: { device_id, filename },
   });
 }
 
 async function apiDeviceDeleteMessages(device_id: number) {
-  return RequestAPI(Urls.Devices, {
-    action: 'delMsg',
+  return RequestAPI(Urls.Devices + '/delMsg', {
     data: { device_id },
   });
 }
 
 async function requestDeviceLogFile(device_id: number, file_name: string) {
-  return RequestAPI(Urls.Devices, {
-    action: 'requestLogFile',
+  return RequestAPI(Urls.Devices + '/requestLogFile', {
     data: { device_id, file_name },
   });
 }
 
 async function updateDeviceLog(device_id: number) {
-  return RequestAPI(Urls.Devices, {
-    action: 'requestLogs',
+  return RequestAPI(Urls.Devices + '/requestLogs', {
     data: { device_id },
   });
 }
 
 async function saveDeviceInfo(params: DeviceToApi) {
-  return RequestAPI(Urls.Devices, {
-    action: 'saveParams',
+  return RequestAPI(Urls.Devices + '/saveParams', {
     data: { ...params },
   });
 }
 
 async function APIdeleteDevice(device_id: number) {
-  return RequestAPI(Urls.Devices, {
-    action: 'delete',
+  return RequestAPI(Urls.Devices + '/delete', {
     data: { device_id },
   });
 }
 
 async function getDashBoard() {
-  return RequestAPI(Urls.DashBoard, {
-    action: 'list',
-  });
+  return RequestAPI(Urls.DashBoard + '/list', {});
 }
 
 async function setDeviceToDashBoard(device_id: number, state: boolean) {
-  return RequestAPI(Urls.DashBoard, {
-    action: 'setToDash',
+  return RequestAPI(Urls.DashBoard + '/setToDash', {
     data: { device_id, state },
   });
 }

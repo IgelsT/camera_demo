@@ -35,7 +35,6 @@ internal sealed class ApiRequest(
 
     fun getBodyJSON(): JsonObject {
         val body = JsonObject()
-        body.addProperty("action", action)
         body.add("data", Gson().toJsonTree(data))
         return body
     }
@@ -47,7 +46,7 @@ internal class ApiRequestLogin(
     data: LoginRequestModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.auth),
+    url = Utils.getApiUrl(API_END_POINTS.auth, API_ACTIONS.LOGIN),
     action = API_ACTIONS.LOGIN,
     doneCallback = doneCallback
 ) {
@@ -58,7 +57,7 @@ internal class ApiRequestSetInfo(
     data: InfoRequestModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.SET_DEVICE_INFO),
     action = API_ACTIONS.SET_DEVICE_INFO,
     doneCallback = doneCallback
 ) {
@@ -69,7 +68,7 @@ internal class ApiRequestSetState(
     data: StateRequestModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.SET_DEVICE_STATE),
     action = API_ACTIONS.SET_DEVICE_STATE,
     doneCallback = doneCallback
 ) {
@@ -80,7 +79,7 @@ internal class ApiRequestSetCamList(
     data: CameraListRequestModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.SET_CAMERA_LIST),
     action = API_ACTIONS.SET_CAMERA_LIST,
     doneCallback = doneCallback
 ) {
@@ -91,7 +90,7 @@ internal class ApiRequestSetLogList(
     data: LogListRequestModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.SET_LOG_LIST),
     action = API_ACTIONS.SET_LOG_LIST,
     doneCallback = doneCallback
 ) {
@@ -101,7 +100,7 @@ internal class ApiRequestSetLogList(
 internal class ApiRequestPing(
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.PING),
     action = API_ACTIONS.PING,
     doneCallback = doneCallback
 )
@@ -110,7 +109,7 @@ internal class ApiRequestAppliedMessages(
     data: AppliedMessagesModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.PING),
     action = API_ACTIONS.APPLIED_MESSAGES,
     doneCallback = doneCallback
 ) {
@@ -121,7 +120,7 @@ internal class ApiRequestCompleteCommand(
     data: Int,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.EXECUTED_MESSAGES),
     action = API_ACTIONS.EXECUTED_MESSAGES,
     doneCallback = doneCallback
 ) {
@@ -134,7 +133,7 @@ internal class ApiRequestLogFile(
     file: ApiRequestFile,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.SEND_LOG),
     action = API_ACTIONS.SEND_LOG,
     file = file,
     doneCallback = doneCallback
