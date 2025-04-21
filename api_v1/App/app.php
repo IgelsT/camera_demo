@@ -52,11 +52,6 @@ class MainApp
             $exception = ApiError::fromException($exception);
         }
         $this->lastError = $exception;
-        // if ($exception->apiCode == 'DB_REQUEST_ERROR') {
-        //     echo "<pre>";
-        //     print_r($exception); //->getTrace()[0]['args'][0]);
-        //     die();
-        // }
         $this->sendError($exception);
     }
 

@@ -14,7 +14,7 @@ $settings = [
   'replayEmail' => 'camera@imile.ru',
   'sendernameEmail' => 'Camera Mailer',
   'confirmUrl' => 'confirm',
-  'deviceLogPath' => 'D:/Projects/Develop/camera/web/public_html/deviceLogs/',
+  'deviceLogPath' => 'D:/Projects/Develop/camera/web/api-custom/public_html/deviceLogs/',
   'auth' => [
     'secretPhase' => 'SuperSecretPhase2020',
   ],

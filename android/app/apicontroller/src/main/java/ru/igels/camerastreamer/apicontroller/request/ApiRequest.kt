@@ -109,7 +109,7 @@ internal class ApiRequestAppliedMessages(
     data: AppliedMessagesModel,
     doneCallback: ((ApiRequest, ApiResponse) -> Unit)? = null
 ) : ApiRequest(
-    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.PING),
+    url = Utils.getApiUrl(API_END_POINTS.device, API_ACTIONS.APPLIED_MESSAGES),
     action = API_ACTIONS.APPLIED_MESSAGES,
     doneCallback = doneCallback
 ) {

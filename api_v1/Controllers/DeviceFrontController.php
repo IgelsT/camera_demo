@@ -99,7 +99,7 @@ class DeviceFrontController
     {
         $this->checkDeviceByID();
         $logModel = new LogModel();
-        $logList = $logModel->getLogList($this->device_id);
+        $logList = $logModel->getLogList($this->device_id, $this->device->device_uid);
 
         $messagesModel = new MessagesModel();
         $msglist = $messagesModel->getMessagesToWork($this->user_id, $this->device->device_uid);
@@ -125,5 +125,20 @@ class DeviceFrontController
         $messagesModel = new MessagesModel();
         $msglist = $messagesModel->getMessagesToWork(Vars::u()->user_id, $this->device->device_uid);
         return ['devicemsg' => $msglist];
+    }
+
+    public function LogFile()
+    {
+        $this->checkDeviceByID();
+        $fileName = $this->vars->getRequest()->checkParam('filename');
+        $fullFilename = Vars::s()['deviceLogPath'] . $this->device->device_uid . "/" . $fileName;
+        if (!file_exists($fullFilename)) throw new ApiError(ERROR_CODES::$FILE_NOT_FOUND);
+
+        $fileStr = file_get_contents($fullFilename);
+
+        return [
+            'file_name' => $fileName,
+            'file64' => base64_encode($fileStr)
+        ];
     }
 }

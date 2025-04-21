@@ -328,8 +328,10 @@ class ApiController {
                     )
                     idList.add(command.messageId)
                 }
-                if (idList.isNotEmpty())
-                    addToMessageQueue(ApiRequestFactory.appliedMessagesRequest(idList))
+                if (idList.isNotEmpty()) {
+                    val request =ApiRequestFactory.appliedMessagesRequest(idList)
+                    addToMessageQueue(request)
+                }
             }
         }
         addToMessageQueue(pingRequest)

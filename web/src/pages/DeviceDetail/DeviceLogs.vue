@@ -11,14 +11,7 @@
               </span>
             </div>
             <div class="col-auto">
-              <q-btn
-                dense
-                round
-                flat
-                color="grey"
-                icon="delete"
-                @click="deleteMessages()"
-              >
+              <q-btn dense round flat color="grey" icon="delete" @click="deleteMessages()">
                 <q-tooltip :delay="500">Удалить</q-tooltip>
               </q-btn>
             </div>
@@ -28,47 +21,20 @@
           </div>
         </div>
         <div v-else>
-          <q-btn
-            color="primary"
-            dense
-            v-if="!isWaitForAnswer"
-            @click="updateLog"
-          >
+          <q-btn color="primary" dense v-if="!isWaitForAnswer" @click="updateLog">
             Request log
           </q-btn>
         </div>
       </div>
-      <q-table
-        :rows="deviceLogList"
-        :columns="columns as any"
-        class="stvs-table"
-        style="height: 100%"
-        virtual-scroll
-        dense
-        row-key="log_id"
-        :rows-per-page-options="[40, 80, 0]"
-      >
+      <q-table :rows="deviceLogList" :columns="columns as any" class="stvs-table" style="height: 100%" virtual-scroll
+        dense row-key="log_id" :rows-per-page-options="[40, 80, 0]">
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
-            <q-btn
-              dense
-              round
-              flat
-              color="grey"
-              icon="download"
-              @click="getFile(props.row.log_name)"
-              v-if="props.row.file"
-            >
+            <q-btn dense round flat color="grey" icon="download" @click="getFile(props.row.log_name)"
+              v-if="props.row.file">
               <q-tooltip :delay="500">Download file</q-tooltip>
             </q-btn>
-            <q-btn
-              dense
-              round
-              flat
-              color="grey"
-              icon="smartphone"
-              @click="requestLogFile(props.row.log_name)"
-            >
+            <q-btn dense round flat color="grey" icon="smartphone" @click="requestLogFile(props.row.log_name)">
               <q-tooltip :delay="500">Request file</q-tooltip>
             </q-btn>
           </q-td>
@@ -136,23 +102,14 @@ function deleteMessages() {
 }
 
 function getFile(name: string) {
-  console.log(name);
-  // store.getDeviceLogFile(deviceID, name).then((response) => {
-  //   const filename = response.headers['content-disposition']
-  //     .split('=')[1]
-  //     .replaceAll('"', '');
-  //   var blob = new Blob([response.data], {
-  //     type: 'application/zip',
-  //   });
-  //   var a = document.createElement('a');
-  //   document.body.appendChild(a);
-  //   const url = window.URL.createObjectURL(blob);
-  //   a.href = url;
-  //   a.download = filename;
-  //   a.click();
-  //   window.URL.revokeObjectURL(url);
-  //   a.remove();
-  // });
+  // console.log(name);
+  store.getDeviceLogFile(deviceID, name).then((response) => {
+    console.log(response.file_name, response.file64);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = 'data:application/zip;base64,' + response.file64;
+    downloadLink.download = response.file_name;
+    downloadLink.click();
+  });
 }
 
 function requestLogFile(name: string) {

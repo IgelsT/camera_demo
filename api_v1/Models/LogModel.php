@@ -6,7 +6,7 @@ namespace Models;
 
 use App\Vars;
 use App\DataBase\ORM\BasicModel;
-use DTO\TestDTO;
+use DTO\DataBase\DeviceLogsDTO;
 
 class LogModel extends BasicModel
 {
@@ -16,22 +16,24 @@ class LogModel extends BasicModel
 
     public function updateLogList(array $logList, int $device_id)
     {
-        $this->where("device_id = :device_id", ['device_id' => $device_id])->delete();
+        $this->delete()->where("device_id = :device_id", ['device_id' => $device_id])->exec();
 
         $this->_fields["device_id"] = $device_id;
-        foreach ($logList as $log) {
-            $this->_fields['log_name'] = $log;
-            $this->insert();
+        foreach ($logList as $log_name) {
+            $log = new DeviceLogsDTO();
+            $log->device_id = $device_id;
+            $log->log_name = $log_name;
+            $this->upsert($log);
         }
     }
 
-    public function getLogList(int $device_id)
+    public function getLogList(int $device_id, string $device_uid)
     {
-        $logList = $this->where("device_id = :device_id", ['device_id' => $device_id])->getAll();
+        $logList = $this->select()->where("device_id = :device_id", ['device_id' => $device_id])->getAll();
         $result = [];
         $logPath = Vars::s()['deviceLogPath'];
         foreach ($logList as $log) {
-            $log['file'] = file_exists($logPath . $log['log_name']);
+            $log['file'] = file_exists($logPath . $device_uid . "/" . $log['log_name']);
             $result[] = $log;
         }
         return $result;

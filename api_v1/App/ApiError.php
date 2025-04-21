@@ -29,7 +29,7 @@ class ERROR_CODES
     static array $DB_CONNECTION_ERROR = ['DB_CONNECTION_ERROR', 'DB connection error', 500];
     static array $DB_REQUEST_ERROR = ['DB_REQUEST_ERROR', 'DB request error', 500];
     static array $BAD_TOKEN = ['BAD_TOKEN', 'bad token', 401];
-    static array $EMAIL_EXIST = ['EMAIL_EXIST', 'email exist', 400];
+    static array $EMAIL_EXIST = ['EMAIL_EXIST', 'email exist', 409];
     static array $EMAIL_NOT_EXIST = ['EMAIL_NOT_EXIST', 'email не зарегистрирован!', 404];
     static array $EMAIL_SEND_ERROR = ['EMAIL_SEND_ERROR', 'email send error', 500];
     static array $WRONG_PASSWORD = ['WRONG_PASSWORD', 'Не правильный email/пароль!', 403];
@@ -53,7 +53,6 @@ class ApiError extends \Error
     var string $reason;
     private ?array $trace = null;
 
-    /** @deprecated */
     public function __construct(array $error, string $reason = '', Throwable $exception = null)
     {
         $this->apiCode = $error[0];
