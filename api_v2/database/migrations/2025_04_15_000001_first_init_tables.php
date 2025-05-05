@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dashboard', function (Blueprint $table) {
-            $table->integer('dash_id', true);
+            $table->integer('dash_id', true)->primary();
             $table->integer('device_id')->default(0);
             $table->integer('user_id')->default(0);
         });
 
         Schema::create('devices', function (Blueprint $table) {
-            $table->integer('device_id', true);
+            $table->integer('device_id', true)->primary();
             $table->string('device_uid', 50);
             $table->string('device_name', 50)->nullable();
             $table->string('device_description', 250)->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
         });
 
         Schema::create('device_camera', function (Blueprint $table) {
-            $table->integer('camera_id', true);
+            $table->integer('camera_id', true)->primary();
             $table->integer('camera_num')->nullable();
             $table->string('camera_type', 15)->nullable();
             $table->string('camera_resolutions', 250)->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration
         });
 
         Schema::create('device_state', function (Blueprint $table) {
-            $table->integer('device_id')->primary();
+            $table->integer('device_id', true)->primary();
             $table->integer('device_camera_id')->nullable();
             $table->string('device_focus', 15)->nullable();
             $table->string('device_resolution', 9)->nullable();
@@ -60,7 +60,7 @@ return new class extends Migration
         });
 
         Schema::create('messages', function (Blueprint $table) {
-            $table->integer('message_id', true);
+            $table->integer('message_id', true)->primary();
             $table->text('message')->nullable();
             $table->enum('message_type', ['IN', 'OUT'])->nullable();
             $table->smallInteger('message_status')->nullable()->default(0);
@@ -72,11 +72,11 @@ return new class extends Migration
         });
 
         Schema::create('users', function (Blueprint $table) {
-            $table->integer('user_id', true);
+            $table->integer('user_id', true)->primary();
             $table->string('user_name', 50)->default('0');
             $table->tinyText('user_description')->nullable();
             $table->string('user_password', 50)->nullable();
-            $table->string('user_email', 50)->nullable();
+            $table->string('user_email', 50)->unique();
             $table->string('user_hash', 50)->nullable();
             $table->string('user_token', 150)->default('');
             $table->tinyInteger('user_confirm')->nullable()->default(0);

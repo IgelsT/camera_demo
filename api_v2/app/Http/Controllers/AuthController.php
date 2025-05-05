@@ -33,7 +33,6 @@ class AuthController extends Controller
 
         return [
             'register' => 'ok',
-            'confirm' => $user->user_hash
         ];
     }
 
@@ -74,6 +73,7 @@ class AuthController extends Controller
     {
         $user = $this->userService->userByEMailPasswd($request->user_email, $request->user_password);
         if ($user === null) throw new ApiException(ERROR_CODES::$WRONG_PASSWORD);
+        if ($user->user_confirm == 0) throw new ApiException(ERROR_CODES::$USER_NOT_CONFIRM);
 
         return [
             'hash' => $this->userService->makeToken($user),

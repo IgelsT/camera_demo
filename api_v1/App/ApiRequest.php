@@ -60,7 +60,7 @@ class ApiRequest
         $uri = preg_split("/\/\?|\?/", $this->uri);
         $uri = str_replace($apiPath, '', isset($uri[0]) ? $uri[0] : '/default');
 
-        $this->methodPath = $uri;
+        $this->methodPath = strtolower($uri);
 
         $data = [];
 
