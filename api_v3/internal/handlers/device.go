@@ -1,9 +1,13 @@
 package handlers
 
 import (
+	"camera_api/internal/errors"
 	. "camera_api/internal/requests"
 	"camera_api/internal/sender"
 	"camera_api/internal/services"
+	"camera_api/pkg/appconfig"
+	"io"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -139,15 +143,40 @@ func (h *DeviceHandler) SetLogList(c *gin.Context) {
 }
 
 func (h *DeviceHandler) SendLog(c *gin.Context) {
-	// $result = false;
-	// // LogClass::LogV($_FILES);
-	// foreach ($_FILES as $file) {
-	// 	$path = config('app.app_settings.device_logpath') . $this->device_uid;
-	// 	if (!is_dir($path)) {
-	// 		mkdir($path);
-	// 	}
-	// 	$target = $path . "/" . $file['name'];
-	// 	$result = move_uploaded_file($_FILES['file']['tmp_name'], $target);
-	// }
-	// return ['result' => $result];
+	// json := ChechParams(c, &LogFileDownloadFrontRequest{})
+	as := services.GetAuthService(c)
+	device_uid := as.GetDeviceUid()
+
+	file, header, err := c.Request.FormFile("file")
+	if err != nil {
+		panic(errors.ErrorFromCode(errors.WRONG_REQUEST, "error rear file"))
+	}
+	filename := header.Filename
+
+	logPath := appconfig.GetAppConfig().FrontDeviceLogPath
+	path := logPath + device_uid
+	fullFilename := logPath + device_uid + "/" + filename
+
+	if _, err := os.Stat(path); err != nil {
+		if err = os.MkdirAll(path, os.ModePerm); err != nil {
+			panic(err)
+		}
+	}
+
+	out, err := os.Create(fullFilename)
+	if err != nil {
+		panic(err)
+	}
+
+	defer out.Close()
+	_, err = io.Copy(out, file)
+	if err != nil {
+		panic(err)
+	}
+
+	response := map[string]any{
+		"SendLog": "ok",
+	}
+
+	sender.ApiSendResponse(c, response)
 }
